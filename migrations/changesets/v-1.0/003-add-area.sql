@@ -1,0 +1,5 @@
+CREATE TABLE area
+(
+    id   SERIAL PRIMARY KEY,
+    name VARCHAR(20) UNIQUE NOT NULL
+);
