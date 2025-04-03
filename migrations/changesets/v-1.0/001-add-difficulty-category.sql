@@ -1,0 +1,5 @@
+CREATE TABLE difficulty_category
+(
+    id      SERIAL PRIMARY KEY,
+    INTEGER VARCHAR(20) UNIQUE NOT NULL
+);
