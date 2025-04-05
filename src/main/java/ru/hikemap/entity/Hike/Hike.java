@@ -1,13 +1,19 @@
-package ru.hikemap.model.Hike;
+package ru.hikemap.entity.Hike;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.Accessors;
+import org.geolatte.geom.LineString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.locationtech.jts.geom.LineString;
-import ru.hikemap.model.User;
+import ru.hikemap.entity.User;
 
+@Getter
+@Setter
+@Accessors(chain = true)
 @Entity
 @Table(name = "hike")
 public class Hike {
@@ -16,7 +22,10 @@ public class Hike {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Column(name = "title")
   private String title;
+
+  @Column(name = "description")
   private String description;
 
   @Column(name = "photo_path")
