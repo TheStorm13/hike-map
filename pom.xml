@@ -32,8 +32,74 @@
         <url/>
     </scm>
 
+    <profiles>
+        <profile>
+            <id>docker-build</id>
+            <activation>
+                <property>
+                    <name>env.DOCKER_BUILD</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <!-- Отключаем Prettier -->
+                    <plugin>
+                        <groupId>com.hubspot.maven.plugins</groupId>
+                        <artifactId>prettier-maven-plugin</artifactId>
+                        <version>${prettier.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>default</id>
+                                <phase>none</phase> <!-- Полное отключение -->
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Отключаем Checkstyle -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-checkstyle-plugin</artifactId>
+                        <version>${checkstyle.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>checkstyle-validation</id>
+                                <phase>none</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Отключаем PMD -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-pmd-plugin</artifactId>
+                        <version>${pmd.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>default</id>
+                                <phase>none</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Отключаем SpotBugs -->
+                    <plugin>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs-maven-plugin</artifactId>
+                        <version>${spotbugs.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>default</id>
+                                <phase>none</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <properties>
-        <java.version>22</java.version>
+        <java.version>23</java.version>
         <spring.boot.version>3.4.4</spring.boot.version>
         <lombok.version>1.18.36</lombok.version>
         <mapstruct.version>1.6.0</mapstruct.version>
@@ -86,11 +152,12 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.n52.jackson</groupId>-->
-<!--            <artifactId>jackson-datatype-jts</artifactId>-->
-<!--            <version>${jackson.jts.version}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.geolatte</groupId>
+            <artifactId>geolatte-geom</artifactId>
+            <version>1.9.1</version>
+        </dependency>
+
 
         <!-- База данных -->
         <dependency>
@@ -139,6 +206,27 @@
             <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- JWT Dependencies -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.11.5</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.11.5</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>0.11.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
 
     </dependencies>
 
