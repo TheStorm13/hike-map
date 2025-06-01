@@ -1,4 +1,4 @@
-package ru.hikemap.dto.response.error;
+package ru.hikemap.dto.error;
 
 import java.time.ZonedDateTime;
 import lombok.AllArgsConstructor;
