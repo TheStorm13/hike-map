@@ -1,4 +1,5 @@
-CREATE EXTENSION IF NOT EXISTS postgis;
+CREATE
+EXTENSION IF NOT EXISTS postgis;
 
 CREATE TABLE hike
 (
@@ -15,7 +16,8 @@ CREATE TABLE hike
     updated_at      TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     organizer_id    INTEGER      NOT NULL REFERENCES user_account (id),
     area_id         INTEGER      NOT NULL REFERENCES area (id),
-    difficulty_id   INTEGER      NOT NULL REFERENCES difficulty_category (id),
+    difficulty      INTEGER      NOT NULL,
+    is_categorical  BOOLEAN      DEFAULT FALSE,
     hike_type_id    INTEGER      NOT NULL REFERENCES hike_type (id),
     CONSTRAINT valid_dates CHECK (end_date >= start_date)
 );
