@@ -3,6 +3,7 @@ package ru.hikemap.controller.hike;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.hikemap.dto.request.AreaRequest;
 import ru.hikemap.dto.response.AreaResponse;
@@ -17,6 +18,7 @@ public class AreaController {
   private final AreaService areaService;
 
   @PostMapping
+  @PreAuthorize("hasAuthority('admin')")
   public ResponseEntity<AreaResponse> createArea(
     @RequestBody AreaRequest areaRequest
   ) {
@@ -34,6 +36,7 @@ public class AreaController {
   }
 
   @PutMapping("/{id}")
+  @PreAuthorize("hasAuthority('admin')")
   public ResponseEntity<AreaResponse> updateArea(
     @PathVariable Long id,
     @RequestBody AreaRequest areaRequest
@@ -47,6 +50,7 @@ public class AreaController {
   }
 
   @DeleteMapping("/{id}")
+  @PreAuthorize("hasAuthority('admin')")
   public ResponseEntity<Void> deleteArea(@PathVariable Long id) {
     areaService.deleteArea(id);
     return ResponseEntity.noContent().build();
