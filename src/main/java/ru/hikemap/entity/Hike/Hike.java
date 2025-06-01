@@ -1,5 +1,6 @@
 package ru.hikemap.entity.Hike;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -40,6 +41,8 @@ public class Hike {
   @Column(name = "track_gpx_path")
   private String trackGpxPath;
 
+  @JsonIgnore
+  @Basic(fetch = FetchType.LAZY)
   @Column(columnDefinition = "geometry(LineString,4326)")
   private LineString trackGeometry;
 
@@ -54,19 +57,21 @@ public class Hike {
   @Column(name = "updated_at")
   private LocalDateTime updatedAt;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "organizer_id", nullable = false)
   private User organizer;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "area_id", nullable = false)
   private Area area;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "difficulty_id", nullable = false)
-  private DifficultyCategory difficulty;
+  @Column(name = "is_categorical", nullable = false)
+  private boolean isCategorical;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @Column(name = "difficulty", nullable = false)
+  private int difficulty;
+
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "hike_type_id", nullable = false)
   private HikeType hikeType;
 }

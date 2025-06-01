@@ -1,23 +1,19 @@
 package ru.hikemap.dto.response;
 
 import java.time.LocalDate;
-import org.geolatte.geom.LineString;
-import ru.hikemap.entity.Hike.Area;
-import ru.hikemap.entity.Hike.DifficultyCategory;
-import ru.hikemap.entity.Hike.HikeType;
-import ru.hikemap.entity.User;
 
 public record HikeResponse(
   Long id,
   String title,
+  String description,
   String photoPath,
+  String trackGpxPath,
+  String reportPdfPath,
   LocalDate startDate,
   LocalDate endDate,
-  String trackGpxPath,
-  LineString trackGeometry,
-  String reportPdfPath,
-  User organizer,
-  Area area,
-  DifficultyCategory difficulty,
-  HikeType hikeType
+  int difficulty,
+  boolean is_categorical,
+  String area,
+  String hikeType,
+  String organizer
 ) {}
