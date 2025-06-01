@@ -53,3 +53,6 @@ replay_pid*
 
 #Prettier
 node_modules
+
+# local files
+TODO.md
